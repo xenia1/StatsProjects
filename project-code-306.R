@@ -2,14 +2,31 @@
 
 #####################################
 # Requirements/Information:
+
+# using data from http://www.gapminder.org/data/ to build regression model 
+# Response variable: Human Development Index (http://hdr.undp.org/en/content/human-development-index-hdi)
+# Nine explanatory variables are used in full model:
+
+  # -Body Mass Index (BMI), men, Kg/m2
+  # -Cholesterol (fat) in blood, men, mmol/L
+  # -GDP/capita (US$, inflation-adjusted)
+  # -Sugar per person (g per day)
+  # -Infant mortality (rate per 1,000 births)
+  # -Females aged 15-64 labour force participation rate (%)
+  # -Internet users (per 100 people)
+  # -Personal computers (per 100 people)
+  # -Cell phones (per 100 people)
+  # -Military expenditure (% of GDP)
+
+## Models tested: 
 ## full model and 5-variable model 
-## best model based on cp and adjR^2 -- which same are equal and same as 5-var model
-## LOOVC on both full and 5-variable model
-## 5-fold cross validation on both 
+## found best model based on cp and adjR^2 -- which same are equal and same as 5-var model
+## Do LOOVC on both full and 5-variable model
+## Do 5-fold cross validation on both as well
 
 # Graphs we want:
 # residuals (model fit)
-# qq plot(maybe?)
+# qq plot
 # some residual plots to show why we transformed the variables
 # histogram of HDI
 # output for models full and 5
@@ -313,3 +330,4 @@ print(cor.res)
 str1.order=c('HDI','Chol','BMI')
 r.HDIchol.BMI=pcor(corMatrix[str1.order,str1.order])
 print(r.HDIchol.BMI)
+
