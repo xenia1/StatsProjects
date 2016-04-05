@@ -34,7 +34,7 @@
 
 ########################################################
 #Helper Functions
-setwd("/")
+setwd("/Users/xenia/Documents/Ascoala/Stat 306")
 library(MASS)
 
 #Function to calculate the leave-one-out cross validation error.
@@ -58,11 +58,11 @@ data = read.csv("project_data.csv", header = TRUE, sep = ",", fill = TRUE)
 # remove guinea, an outlier !!!(must remove here otherwise won't run properly)!!!
 data = data[-50,]
 
-# keep only columns with data (not country names)
-data = data[,2:11]
-
 # remove NAs
 data = data[complete.cases(data),]
+
+# keep only columns with data (not country names)
+data = data[,2:11]
 
 ###########################################################
 # before transforms, run preliminary regression, look at certain plots.
@@ -99,7 +99,7 @@ plot(data$Female.LF.Particip,res.prelim,xlab="Female Labor Participation",ylab="
 abline(h=2*sigma.prelim); abline(h=-2*sigma.prelim)
 
 plot(data$X..Comps,res.prelim,xlab="Num Computers",ylab="residual")
-abline(h=2*sigma).prelim; abline(h=-2*sigma.prelim)
+abline(h=2*sigma.prelim); abline(h=-2*sigma.prelim)
 dev.off()
 
 jpeg('resplot3-prelim.jpg')
@@ -258,7 +258,7 @@ best.model = lm(HDI~ BMI + Chol + Infant.Mortality + Female.LF.Particip + Intern
 best.model.cvrmse <- ls.cvrmse(best.model)
 # Results
 print(c(full.model.cvrmse, best.model.cvrmse))
-# output: 0.05052809 0.04890043
+# output: 0.04552404 0.04381715
 
 n <- nrow(data)
 sn <- floor(n/5)
@@ -288,15 +288,15 @@ apply(errMx, 2, mean)
 
 #output:
 # FullModel  BestModel 
-# 0.05037194 0.04830219 
+# 0.04573308 0.04374439 
 
 ####################################
 # output for LOOVC and 5-fold:
-rbind(apply(errMx, 2, mean), c(full.model.cvrmse, best.model.cvrmse))
+rbind(c(full.model.cvrmse, best.model.cvrmse), apply(errMx, 2, mean))
 
 #        FullModel  BestModel
-#LOOVC  0.05037194 0.04830219 
-#5-fold 0.05052809 0.04890043
+#LOOVC  0.04552404 0.04381715
+#5-fold 0.04573308 0.04374439
 
 # --> bestModel (i.e. 5-var) is always better! 
 
@@ -328,6 +328,6 @@ print(cor.res)
 
 # OR use pcor Function
 str1.order=c('HDI','Chol','BMI')
-r.HDIchol.BMI=pcor(corMatrix[str1.order,str1.order])
+r.HDIchol.BMI=pcor(cor_matrix[str1.order,str1.order])
 print(r.HDIchol.BMI)
 
